@@ -1,24 +1,26 @@
 ## 1. Add Booya to your website
 
+**NOTE**: To see Code Snippets at [go.booya.io](https://go.booya.io), you need to enable the "Show Code Snippets" toggle.
+
 ### 1.1 Enable Booya
 
 **IMPORTANT:** This snippet is already included in BRiX templates so it doesn't need to be added for BriX users.
 
-Copy the code snippet from "Code Snippet: Enable Booya" from the Integration page and add it to your website or portal.
+Copy the code snippet from "Code Snippet: Enable Booya" from the Integration page (enable the "Show Code Snippets" toggle to see this section) and add it to your website or portal.
 
-![Image](images/image19.png)
+![Image](images/snippet_enable_booya.png)
 
 **NOTE:** Preferably, this should be added in the head area of all your pages. Follow this [guide for HubSpot websites](https://knowledge.hubspot.com/cos-general/how-can-i-add-code-snippets-to-the-head-and-footer-html-of-my-pages) for additional help.
 
 ### 1.2 Add Authentication UI to a section, page or module
 
-Copy the code snippet from "Code Snippet: Render Authentication UI" from the Integration page and add it to the relevant section, page or module of your website.
+Copy the code snippet from "Code Snippet: Render Authentication UI" from the Integration page (enable the "Show Code Snippets" toggle to see this section) and add it to the relevant section, page or module of your website.
 
-![Image](images/image6.png)
+![Image](images/snippet_render_auth_ui.png)
 
 This code snippet will add an authentication widget with sign in, sign up and recover password forms with links that allow the user to switch between different forms.
 
-![Image](images/image1.png)
+![Image](images/screenshot_auth_widget.png)
 
 NOTE: For version 0.2.7 and higher of the Booya UI Library, changes made to the Registration form in HubSpot are synchronized with this authentication widget.
 
@@ -26,11 +28,11 @@ NOTE: For version 0.2.7 and higher of the Booya UI Library, changes made to the 
 
 Set the "Member URL" and "Guest URL" in the Admin Dashboard under "Authentication Settings". Users will be redirected to the "Member URL" after sign in and to the "Guest URL" after logout.
 
-![Image](images/image10.png)
+![Image](images/screenshot_member_guest_url.png)
 
 For more advanced redirect behaviour on sign in based on contact properties on sign in, check the "Enable Advanced Member URL Configuration" and add an option for each redirect based on a contact property value.
 
-![Image](images/image18.png)
+![Image](images/screenshot_advance_member_config.png)
 
 **NOTE:** With "Member URL", "Guest URL" and optionally "Advanced Member URL Configuration" configuration setup
 - Users will be redirected to the "Member URL" or a matching url in "Advanced Member URL Configuration" after signing in
@@ -46,7 +48,7 @@ For more advanced redirect behaviour on sign in based on contact properties on s
 
 The user widget shows the user's avatar and name and includes options to "Edit Profile" and "Sign Out" on hover/focus.
 
-![Image](images/image20.png)
+![Image](images/screenshot_user_widget.png)
 
 **HTML:**
 ```HTML
@@ -84,6 +86,22 @@ These HubSpot forms are automatically created by Booya and named **"Booya: Regis
 - The registration form in HubSpot shouldn't include a password field, this field is automatically added by Booya and passwords are **NOT** stored in HubSpot. Booya stores passwords as [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt) hashes in a MongoDB database for email authentication.
 - While the profile form in HubSpot must include an email, this field will not be shown on your website because it's autofilled by Booya when submitting to HubSpot.
 - This requires version 0.2.7 or higher of the Booya UI Library.
+
+### 1.6 Protecting content in HubL
+
+- Create a template partial at the path "InboundLabs/Booya v2/macros/auth.html"
+
+- Copy the HubL code snippet from "Code Snippet: HubL Macro" from the Integration page (enable the "Show Code Snippets" toggle to see this section) into it.
+
+![Image](images/snippet_hubl_macro.png)
+
+- You can then import "InboundLabs/Booya v2/macros/auth.html" as a macro in your modules and templates and conditionally show content only if "is_authed" is true as shown below
+``` HTML
+{% import 'InboundLabs/Booya v2/macros/auth.html' as booya_auth %}
+{% if booya_auth.is_authed %}
+<!-- Secure content goes here -->
+{% endif %}
+```
 
 
 ## 2. Booya UI Elements library
