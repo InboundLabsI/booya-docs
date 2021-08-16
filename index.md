@@ -96,14 +96,8 @@ These HubSpot forms are automatically created by Booya and named **"Booya: Regis
 ![Image](images/snippet_hubl_macro.png)
 
 - You can then import "InboundLabs/Booya v2/macros/auth.html" as a macro in your modules and templates and conditionally show content only if "is_authed" is true as shown below
-``` HTML
-{% raw %}
-{% import 'InboundLabs/Booya v2/macros/auth.html' as booya_auth %}
-{% if booya_auth.is_authed %}
-<!-- Secure content goes here -->
-{% endif %}
-{% endraw %}
-```
+
+![Image](images/snippet_hubl_example.png)
 
 
 ## 2. Booya UI Elements library
