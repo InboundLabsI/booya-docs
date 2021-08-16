@@ -268,117 +268,139 @@ booya.ready(function () {
 });
 ```
 
-##### 2.2.3 Authentication Widget: 
+##### Authentication Widget: 
 Add an auth widget with all options for user registration including Sign In, Sign Up, Recovery and OAuth with links that switch between options
 ``` JavaScript
-booya.widgets.renderAuthWidgets({
-  target: "#booya-wrapper"
-}); 
-```
-
-##### 2.2.4 Authentication Widget - Modal: 
-``` JavaScript
-booya.widgets.renderAuthWidgets({
-  target: "#booya-wrapper",
-  modal: {isOpen: true}, // isOpen will automatically open the modal
+booya.ready(function () {
+  booya.widgets.renderAuthWidgets({
+    target: "#booya-wrapper"
+  }); 
 });
 ```
 
-##### 2.2.5 Authentication Widget - MultiStep: 
+##### Authentication Widget - Modal: 
+``` JavaScript
+booya.ready(function () {
+  booya.widgets.renderAuthWidgets({
+    target: "#booya-wrapper",
+    modal: {isOpen: true}, // isOpen will automatically open the modal
+  });
+});
+```
+
+##### Authentication Widget - MultiStep: 
 Request email first and show either Sign In or Sign Up form depending on user's status
 ``` JavaScript
-booya.widgets.renderAuthWidgets({
-  target: "#booya-wrapper",
-  multiStep: true,
+booya.ready(function () {
+  booya.widgets.renderAuthWidgets({
+    target: "#booya-wrapper",
+    multiStep: true,
+  });
 });
 ```
 **NOTE:** This integration requires version 0.2.4 or higher of the Booya UI Library
 
-##### 2.2.6 Authentication Widget - Magic Link sign in enabled: 
+##### Authentication Widget - Magic Link sign in enabled: 
 ``` JavaScript
-booya.widgets.renderAuthWidgets({
-  target: "#booya-wrapper",
-  magicLink: true,
+booya.ready(function () {
+  booya.widgets.renderAuthWidgets({
+    target: "#booya-wrapper",
+    magicLink: true,
+  });
 });
 ```
 **NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
 
-##### 2.2.7 Authentication Widget - No Sign In: 
+##### Authentication Widget - No Sign In: 
 ``` JavaScript
-booya.widgets.renderAuthWidgets({
-  target: "#booya-wrapper",
-  signIn: false,
+booya.ready(function () {
+  booya.widgets.renderAuthWidgets({
+    target: "#booya-wrapper",
+    signIn: false,
+  });
 });
 ```
 **NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
 
-##### 2.2.8 Authentication Widget - No Sign Up: 
+##### Authentication Widget - No Sign Up: 
 Request email first and show either Sign In or Sign Up form depending on user's status
 ``` JavaScript
-booya.widgets.renderAuthWidgets({
-  target: "#booya-wrapper",
-  signUp: false,
+booya.ready(function () {
+  booya.widgets.renderAuthWidgets({
+    target: "#booya-wrapper",
+    signUp: false,
+  });
 });
 ```
 **NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
 
-##### 2.2.9 Authentication Widget - No Account Recovery: 
+##### Authentication Widget - No Account Recovery: 
 ``` JavaScript
-booya.widgets.renderAuthWidgets({
-  target: "#booya-wrapper",
-  recover: true,
+booya.ready(function () {
+  booya.widgets.renderAuthWidgets({
+    target: "#booya-wrapper",
+    recover: true,
+  });
 });
 ```
 **NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
 
-##### 2.2.10 Sign In Form: 
+##### Sign In Form: 
 Add a sign in form to the wrapper
 ``` JavaScript
-$("#booya-wrapper").html(
-  booya.widgets.renderSignInForm()
-);
-booya.initUI(); // Not necessary if a target is added via "options"
+booya.ready(function () {
+  $("#booya-wrapper").html(
+    booya.widgets.renderSignInForm()
+  );
+  booya.initUI(); // Not necessary if a target is added via "options"
+});
 ```
 
-##### 2.2.11 Sign In Form - Modal:
+##### Sign In Form - Modal:
 Add a sign in form wrapped in a modal to the wrapper
 ``` JavaScript
-booya.widgets.renderModal(
-  "Sign In", 
-  booya.widgets.renderSignInForm(),
-  {
-    target: "#booya-wrapper",
-    modal: {isOpen: true},
-  }
-);
+booya.ready(function () {
+  booya.widgets.renderModal(
+    "Sign In", 
+    booya.widgets.renderSignInForm(),
+    {
+      target: "#booya-wrapper",
+      modal: {isOpen: true},
+    }
+  );
+});
 ```
 
-##### 2.2.12 Sign Up form: 
+##### Sign Up form: 
 Add a sign up form to the wrapper
 ``` JavaScript
-$("#booya-wrapper").html(
-  booya.widgets.renderSignUpForm()
-);
-booya.initUI(); // Not necessary if a target is added via "options"
+booya.ready(function () {
+  $("#booya-wrapper").html(
+    booya.widgets.renderSignUpForm()
+  );
+  booya.initUI(); // Not necessary if a target is added via "options"
+});
 ```
 
 ##### 2.2.13 Sign Up Form - Customized:
 Add a customized sign up form to the wrapper
 ``` JavaScript
-booya.widgets.renderSignUpForm(
-  "<h2>Register</h2>", // Custom Title
-  "<input name="email" type="email" required/>" + // Customized Fields
-  "<input name="password" type="password" required/>" +
-  "<input name="first_name" type="text" required/>" +
-  "<input name="last_name" type="text" required/>",
-  "Register", // Custom Action
-  {
-    "target": "#booya-wrapper",      
-    "error": "Something's wrong" // Custom error message
-    "success": "Awesome", // Custom success message
-    "warning": "Bad data", // Custom validation message
-  } 
-);
+booya.ready(function () {
+  booya.widgets.renderSignUpForm(
+    "<h2>Register</h2>", // Custom Title
+    "<input name="email" type="email" required/>" + // Customized Fields
+    "<input name="password" type="password" required/>" +
+    "<input name="first_name" type="text" required/>" +
+    "<input name="last_name" type="text" required/>",
+    "Register", // Custom Action
+    {
+      "target": "#booya-wrapper",      
+      "error": "Something's wrong" // Custom error message
+      "success": "Awesome", // Custom success message
+      "warning": "Bad data", // Custom validation message
+    } 
+  );
+});
 ```
 
 ## 3. Booya Events
@@ -387,57 +409,57 @@ booya.widgets.renderSignUpForm(
 
 **NOTE:** All event constants can be accessed via `booya.events.*` e.g `booya.events.IDENTIFY_SUCCESS`
 
-#### 3.1.1 `booya.events.READY`
+#### `booya.events.READY`
 Fired when booya is fully initialized (portalID and appID are set up)
 
-#### 3.1.2 `booya.events.IDENTIFY_SUCCESS`
+#### `booya.events.IDENTIFY_SUCCESS`
 Fired when a user is identified (e.g either when they login or a new page is loaded for an existing session)
 
 A `user` object is included in the event data.
 
-#### 3.1.3 `booya.events.IDENTIFY_FAILED`
+#### `booya.events.IDENTIFY_FAILED`
 Failure version of `booya.events.IDENTIFY_SUCCESS`
 
 A `user` object is included in the event data.
 
-#### 3.1.4 `booya.events.VERIFY_EMAIL_SUCCESS`
+#### `booya.events.VERIFY_EMAIL_SUCCESS`
 Fired as the success event for two legged sign in and sign up flows where an email is first entered before either a registration form is shown or a password form is shown. 
 
 A password form should be displayed when this event is fired
 
 A `email` is included in the event data.
 
-#### 3.1.5 `booya.events.VERIFY_EMAIL_FAILED`
+#### `booya.events.VERIFY_EMAIL_FAILED`
 Failure version of `booya.events.VERIFY_EMAIL_SUCCESS`
 
 A registration form should be displayed when this event is fired
 
 A `email` is included in the event data.
 
-#### 3.1.6 `booya.events.LOGOUT_SUCCESS`
+#### `booya.events.LOGOUT_SUCCESS`
 Fired when a user logs out
 
-#### 3.1.7 `booya.events.LOGOUT_FAILED`
+#### `booya.events.LOGOUT_FAILED`
 Failure version of `booya.events.LOGOUT_SUCCESS`
 
-#### 3.1.8 `booya.events.MAGIC_LINK_REQUEST_SUCCESS`
+#### `booya.events.MAGIC_LINK_REQUEST_SUCCESS`
 Fired when a magic link is requested successfully.
 
-#### 3.1.9 `booya.events.MAGIC_LINK_REQUEST_FAILED`
+#### `booya.events.MAGIC_LINK_REQUEST_FAILED`
 Failure version of `booya.events.MAGIC_LINK_REQUEST_SUCCESS`
 
-#### 3.1.10  `booya.events.MAGIC_LINK_VERIFY_SUCCESS`
+#### `booya.events.MAGIC_LINK_VERIFY_SUCCESS`
 Fired when a user is logged in with a magic link successfully
 
-#### 3.1.11 `booya.events.MAGIC_LINK_VERIFY_FAILED`
+#### `booya.events.MAGIC_LINK_VERIFY_FAILED`
 Failure version of `booya.events.MAGIC_LINK_VERIFY_SUCCESS`
 
-#### 3.1.12 `booya.events.MEMBER_URL_REDIRECT`
+#### `booya.events.MEMBER_URL_REDIRECT`
 Fired before an authenticated user is redirected because of a matching "Advanced Member URL Configuration"
 
 A `user` object and the `nextUrl` is included in the event data.
 
-#### 3.1.13 `booya.events.GUEST_URL_REDIRECT`
+#### `booya.events.GUEST_URL_REDIRECT`
 Fired before an unauthenticated user is redirected because of a matching "Advanced Member URL Configuration"
 
 The `nextUrl` is included in the event data.
