@@ -8,7 +8,7 @@ Copy the code snippet from "Code Snippet: Enable Booya" from the Integration pag
 
 ![Image](images/image19.png)
 
-**NOTE:** Preferably, this should be added in the head area of all your pages. Follow this guide for HubSpot websites for additional help.
+**NOTE:** Preferably, this should be added in the head area of all your pages. Follow this [guide for HubSpot websites](https://knowledge.hubspot.com/cos-general/how-can-i-add-code-snippets-to-the-head-and-footer-html-of-my-pages) for additional help.
 
 ### Add Authentication UI to a section, page or module
 
@@ -71,16 +71,17 @@ booya.ready(function () {
     $("#booya-user-wrapper").html("");
   });
 });
-
 ```
 
 ### Edit Registration/ Sign Up and Profile Forms
 
-Changes made to the forms set as **"HubSpot Registration Form ID"** (named **"Booya: Registration Form"** by default) and **"HubSpot Profile Form ID"** (named **"Booya: Profile Form"** by default) in HubSpot will reflect in the Sign Up and Edit Profile forms on your website. 
+Changes made to the HubSpot forms set as **"HubSpot Registration Form ID"** and **"HubSpot Profile Form ID"** in [go.booya.io](https://go.booya.io) will be reflected in the Sign Up and Edit Profile forms on your website. 
+
+These HubSpot forms are automatically created by Booya and named **"Booya: Registration Form"** and **"Booya: Profile Form"** by default, however, they can be changed to other HubSpot forms in [go.booya.io](https://go.booya.io).
 
 **IMPORTANT:**
 - Both HubSpot forms should include an email field otherwise submissions from your website will fail because submissions need to be associated with a contact.
-- The registration form in HubSpot shouldn't include a password field, this field is automatically added by Booya and passwords are **NOT** stored in HubSpot. Booya stores passwords as Bcrypt hashes in a MongoDB database for email authentication.
+- The registration form in HubSpot shouldn't include a password field, this field is automatically added by Booya and passwords are **NOT** stored in HubSpot. Booya stores passwords as [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt) hashes in a MongoDB database for email authentication.
 - While the profile form in HubSpot must include an email, this field will not be shown on your website because it's autofilled by Booya when submitting to HubSpot.
 - This requires version 0.2.7 or higher of the Booya UI Library.
 
