@@ -1,6 +1,6 @@
-## Add Booya to your website
+## 1. Add Booya to your website
 
-### Enable Booya
+### 1.1 Enable Booya
 
 **IMPORTANT:** This snippet is already included in BRiX templates so it doesn't need to be added for BriX users.
 
@@ -10,7 +10,7 @@ Copy the code snippet from "Code Snippet: Enable Booya" from the Integration pag
 
 **NOTE:** Preferably, this should be added in the head area of all your pages. Follow this [guide for HubSpot websites](https://knowledge.hubspot.com/cos-general/how-can-i-add-code-snippets-to-the-head-and-footer-html-of-my-pages) for additional help.
 
-### Add Authentication UI to a section, page or module
+### 1.2 Add Authentication UI to a section, page or module
 
 Copy the code snippet from "Code Snippet: Render Authentication UI" from the Integration page and add it to the relevant section, page or module of your website.
 
@@ -22,7 +22,7 @@ This code snippet will add an authentication widget with sign in, sign up and re
 
 NOTE: For version 0.2.7 and higher of the Booya UI Library, changes made to the Registration form in HubSpot are synchronized with this authentication widget.
 
-### Redirect user to a different page after sign in or logout
+### 1.3 Redirect user to a different page after sign in or logout
 
 Set the "Member URL" and "Guest URL" in the Admin Dashboard under "Authentication Settings". Users will be redirected to the "Member URL" after sign in and to the "Guest URL" after logout.
 
@@ -40,7 +40,7 @@ For more advanced redirect behaviour on sign in based on contact properties on s
 
 **NOTE:** This requires version 0.2.21 or higher of the Booya UI Library.
 
-### Add a user widget after authentication and remove it on logout
+### 1.4 Add a user widget after authentication and remove it on logout
 
 **IMPORTANT:** For BRiX users, this functionality is included in the "Authentication" module, so the snippets below should only be for more advanced customization of the default authentication behaviour.
 
@@ -73,7 +73,7 @@ booya.ready(function () {
 });
 ```
 
-### Edit Registration/ Sign Up and Profile Forms
+### 1.5 Edit Registration/ Sign Up and Profile Forms
 
 Changes made to the HubSpot forms set as **"HubSpot Registration Form ID"** and **"HubSpot Profile Form ID"** in [go.booya.io](https://go.booya.io) will be reflected in the Sign Up and Edit Profile forms on your website. 
 
@@ -86,9 +86,9 @@ These HubSpot forms are automatically created by Booya and named **"Booya: Regis
 - This requires version 0.2.7 or higher of the Booya UI Library.
 
 
-## Booya UI Elements library
+## 2. Booya UI Elements library
 
-### Generating HTML for Booya UI elements (e.g forms, modals and widgets)
+### 2.1 Generating HTML for Booya UI elements (e.g forms, modals and widgets)
 
 Below is a list of all available methods for generating HTML for common Booya UI elements.
 
@@ -96,7 +96,7 @@ Below is a list of all available methods for generating HTML for common Booya UI
 
 **NOTE:** Arguments prefixed with * are required
 
-#### `renderAuthWidgets(options)`
+#### 2.1.1 `renderAuthWidgets(options)`
 
 Renders a widget with Sign In (with OAuth buttons), Sign Up and Recover forms with links that switch between the forms. Settings for the forms are dynamically read from Booya Admin.
 
@@ -125,7 +125,7 @@ Renders a widget with Sign In (with OAuth buttons), Sign Up and Recover forms wi
     - `className`: (optional) string, custom class to add to the modal container element
 
 
-#### `renderUserWidget(target, options)`
+#### 2.1.2 `renderUserWidget(target, options)`
 
 Renders a user widget that shows the user's avatar and name and includes options to "Edit Profile" and "Sign Out" on hover/focus.
 
@@ -138,7 +138,7 @@ Renders a user widget that shows the user's avatar and name and includes options
   - `logout`: (optional) function, function to call on clicking "Sign Out"
 
 
-#### `renderModal(*title, *content, options)`
+#### 2.1.3 `renderModal(*title, *content, options)`
 
 Renders a modal
 
@@ -155,7 +155,7 @@ Renders a modal
   - `className`: (optional) string, custom class to add to the modal container element
 
 
-#### `renderSignInForm(title, fields, action, options)`
+#### 2.1.4 `renderSignInForm(title, fields, action, options)`
 
 Renders a sign in form with email and password fields by default
 
@@ -174,7 +174,7 @@ Renders a sign in form with email and password fields by default
   - `error`: (optional) string, Error message
 
 
-#### `renderSignUpForm(title, fields, action, options)`
+#### 2.1.5 `renderSignUpForm(title, fields, action, options)`
 
 Renders a sign up/register form with email, password, first_name, last_name and phone fields by default
 
@@ -193,7 +193,7 @@ Renders a sign up/register form with email, password, first_name, last_name and 
   - `error`: (optional) string, Error message
 
 
-#### `renderRecoverForm(title, fields, action, options)`
+#### 2.1.6 `renderRecoverForm(title, fields, action, options)`
 
 Renders an account recovery form with an email field by default
 
@@ -212,7 +212,7 @@ Renders an account recovery form with an email field by default
   - `error`: (optional) string, Error message
 
 
-#### `renderResetForm(title, fields, action, options)`
+#### 2.1.7 `renderResetForm(title, fields, action, options)`
 
 Renders a password reset/change form with  password and confirm password fields by default
 
@@ -231,7 +231,7 @@ Renders a password reset/change form with  password and confirm password fields 
   - `error`: (optional) string, Error message
 
 
-#### `renderProfileForm(title, fields, action, options)`
+#### 2.1.8 `renderProfileForm(title, fields, action, options)`
 
 Renders a sign up/register form with first_name, last_name and phone fields by default
 
@@ -250,16 +250,16 @@ Renders a sign up/register form with first_name, last_name and phone fields by d
   - `error`: (optional) string, Error message
 
 
-### Adding UI elements to the page
+### 2.2 Adding UI elements to the page
 
-#### HTML
+#### 2.2.1 HTML
 
 ``` HTML
 <!-- Add a wrapper for the UI element to the page HTML -->
 <div id="booya-wrapper"></div>
 ```
 
-#### JavaScript
+#### 2.2.2 JavaScript
 
 **NOTE:** All Booya code should be wrapped inside a ready callback to allow deferred loading of the UI library e.g
 ``` JavaScript
@@ -268,7 +268,7 @@ booya.ready(function () {
 });
 ```
 
-##### Authentication Widget: 
+##### 2.2.3 Authentication Widget: 
 Add an auth widget with all options for user registration including Sign In, Sign Up, Recovery and OAuth with links that switch between options
 ``` JavaScript
 booya.widgets.renderAuthWidgets({
@@ -276,7 +276,7 @@ booya.widgets.renderAuthWidgets({
 }); 
 ```
 
-##### Authentication Widget - Modal: 
+##### 2.2.4 Authentication Widget - Modal: 
 ``` JavaScript
 booya.widgets.renderAuthWidgets({
   target: "#booya-wrapper",
@@ -284,7 +284,7 @@ booya.widgets.renderAuthWidgets({
 });
 ```
 
-##### Authentication Widget - MultiStep: 
+##### 2.2.5 Authentication Widget - MultiStep: 
 Request email first and show either Sign In or Sign Up form depending on user's status
 ``` JavaScript
 booya.widgets.renderAuthWidgets({
@@ -294,7 +294,7 @@ booya.widgets.renderAuthWidgets({
 ```
 **NOTE:** This integration requires version 0.2.4 or higher of the Booya UI Library
 
-##### Authentication Widget - Magic Link sign in enabled: 
+##### 2.2.6 Authentication Widget - Magic Link sign in enabled: 
 ``` JavaScript
 booya.widgets.renderAuthWidgets({
   target: "#booya-wrapper",
@@ -303,7 +303,7 @@ booya.widgets.renderAuthWidgets({
 ```
 **NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
 
-##### Authentication Widget - No Sign In: 
+##### 2.2.7 Authentication Widget - No Sign In: 
 ``` JavaScript
 booya.widgets.renderAuthWidgets({
   target: "#booya-wrapper",
@@ -312,7 +312,7 @@ booya.widgets.renderAuthWidgets({
 ```
 **NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
 
-##### Authentication Widget - No Sign Up: 
+##### 2.2.8 Authentication Widget - No Sign Up: 
 Request email first and show either Sign In or Sign Up form depending on user's status
 ``` JavaScript
 booya.widgets.renderAuthWidgets({
@@ -322,7 +322,7 @@ booya.widgets.renderAuthWidgets({
 ```
 **NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
 
-##### Authentication Widget - No Account Recovery: 
+##### 2.2.9 Authentication Widget - No Account Recovery: 
 ``` JavaScript
 booya.widgets.renderAuthWidgets({
   target: "#booya-wrapper",
@@ -331,7 +331,7 @@ booya.widgets.renderAuthWidgets({
 ```
 **NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
 
-##### Sign In Form: 
+##### 2.2.10 Sign In Form: 
 Add a sign in form to the wrapper
 ``` JavaScript
 $("#booya-wrapper").html(
@@ -340,7 +340,7 @@ $("#booya-wrapper").html(
 booya.initUI(); // Not necessary if a target is added via "options"
 ```
 
-##### Sign In Form - Modal:
+##### 2.2.11 Sign In Form - Modal:
 Add a sign in form wrapped in a modal to the wrapper
 ``` JavaScript
 booya.widgets.renderModal(
@@ -353,7 +353,7 @@ booya.widgets.renderModal(
 );
 ```
 
-##### Sign Up form: 
+##### 2.2.12 Sign Up form: 
 Add a sign up form to the wrapper
 ``` JavaScript
 $("#booya-wrapper").html(
@@ -362,7 +362,7 @@ $("#booya-wrapper").html(
 booya.initUI(); // Not necessary if a target is added via "options"
 ```
 
-##### Sign Up Form - Customized:
+##### 2.2.13 Sign Up Form - Customized:
 Add a customized sign up form to the wrapper
 ``` JavaScript
 booya.widgets.renderSignUpForm(
@@ -381,69 +381,69 @@ booya.widgets.renderSignUpForm(
 );
 ```
 
-## Booya Events
+## 3. Booya Events
 
-### List of available events
+### 3.1 List of available events
 
 **NOTE:** All event constants can be accessed via `booya.events.*` e.g `booya.events.IDENTIFY_SUCCESS`
 
-#### `booya.events.READY`
+#### 3.1.1 `booya.events.READY`
 Fired when booya is fully initialized (portalID and appID are set up)
 
-#### `booya.events.IDENTIFY_SUCCESS`
+#### 3.1.2 `booya.events.IDENTIFY_SUCCESS`
 Fired when a user is identified (e.g either when they login or a new page is loaded for an existing session)
 
 A `user` object is included in the event data.
 
-#### `booya.events.IDENTIFY_FAILED`
+#### 3.1.3 `booya.events.IDENTIFY_FAILED`
 Failure version of `booya.events.IDENTIFY_SUCCESS`
 
 A `user` object is included in the event data.
 
-#### `booya.events.VERIFY_EMAIL_SUCCESS`
+#### 3.1.4 `booya.events.VERIFY_EMAIL_SUCCESS`
 Fired as the success event for two legged sign in and sign up flows where an email is first entered before either a registration form is shown or a password form is shown. 
 
 A password form should be displayed when this event is fired
 
 A `email` is included in the event data.
 
-#### `booya.events.VERIFY_EMAIL_FAILED`
+#### 3.1.5 `booya.events.VERIFY_EMAIL_FAILED`
 Failure version of `booya.events.VERIFY_EMAIL_SUCCESS`
 
 A registration form should be displayed when this event is fired
 
 A `email` is included in the event data.
 
-#### `booya.events.LOGOUT_SUCCESS`
+#### 3.1.6 `booya.events.LOGOUT_SUCCESS`
 Fired when a user logs out
 
-#### `booya.events.LOGOUT_FAILED`
+#### 3.1.7 `booya.events.LOGOUT_FAILED`
 Failure version of `booya.events.LOGOUT_SUCCESS`
 
-#### `booya.events.MAGIC_LINK_REQUEST_SUCCESS`
+#### 3.1.8 `booya.events.MAGIC_LINK_REQUEST_SUCCESS`
 Fired when a magic link is requested successfully.
 
-#### `booya.events.MAGIC_LINK_REQUEST_FAILED`
+#### 3.1.9 `booya.events.MAGIC_LINK_REQUEST_FAILED`
 Failure version of `booya.events.MAGIC_LINK_REQUEST_SUCCESS`
 
-#### `booya.events.MAGIC_LINK_VERIFY_SUCCESS`
+#### 3.1.10  `booya.events.MAGIC_LINK_VERIFY_SUCCESS`
 Fired when a user is logged in with a magic link successfully
 
-#### `booya.events.MAGIC_LINK_VERIFY_FAILED`
+#### 3.1.11 `booya.events.MAGIC_LINK_VERIFY_FAILED`
 Failure version of `booya.events.MAGIC_LINK_VERIFY_SUCCESS`
 
-#### `booya.events.MEMBER_URL_REDIRECT`
+#### 3.1.12 `booya.events.MEMBER_URL_REDIRECT`
 Fired before an authenticated user is redirected because of a matching "Advanced Member URL Configuration"
 
 A `user` object and the `nextUrl` is included in the event data.
 
-#### `booya.events.GUEST_URL_REDIRECT`
+#### 3.1.13 `booya.events.GUEST_URL_REDIRECT`
 Fired before an unauthenticated user is redirected because of a matching "Advanced Member URL Configuration"
 
 The `nextUrl` is included in the event data.
 
 
-### How to listen for events
+### 3.2 How to listen for events
 
 ``` JavaScript
 booya.on(booya.events.IDENTIFY_SUCCESS, function (e) {
