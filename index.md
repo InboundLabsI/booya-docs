@@ -1,37 +1,456 @@
-## Welcome to GitHub Pages
+## Add Booya to your website
 
-You can use the [editor on GitHub](https://github.com/InboundLabsI/booya-docs/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+### Enable Booya
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+**IMPORTANT:** This snippet is already included in BRiX templates so it doesn't need to be added for BriX users.
 
-### Markdown
+Copy the code snippet from "Code Snippet: Enable Booya" from the Integration page and add it to your website or portal.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+![Image](images/image19.png)
 
-```markdown
-Syntax highlighted code block
+**NOTE:** Preferably, this should be added in the head area of all your pages. Follow this guide for HubSpot websites for additional help.
 
-# Header 1
-## Header 2
-### Header 3
+### Add Authentication UI to a section, page or module
 
-- Bulleted
-- List
+Copy the code snippet from "Code Snippet: Render Authentication UI" from the Integration page and add it to the relevant section, page or module of your website.
 
-1. Numbered
-2. List
+![Image](images/image6.png)
 
-**Bold** and _Italic_ and `Code` text
+This code snippet will add an authentication widget with sign in, sign up and recover password forms with links that allow the user to switch between different forms.
 
-[Link](url) and ![Image](src)
+![Image](images/image1.png)
+
+NOTE: For version 0.2.7 and higher of the Booya UI Library, changes made to the Registration form in HubSpot are synchronized with this authentication widget.
+
+### Redirect user to a different page after sign in or logout
+
+Set the "Member URL" and "Guest URL" in the Admin Dashboard under "Authentication Settings". Users will be redirected to the "Member URL" after sign in and to the "Guest URL" after logout.
+
+![Image](images/image10.png)
+
+For more advanced redirect behaviour on sign in based on contact properties on sign in, check the "Enable Advanced Member URL Configuration" and add an option for each redirect based on a contact property value.
+
+![Image](images/image18.png)
+
+**NOTE:** With "Member URL", "Guest URL" and optionally "Advanced Member URL Configuration" configuration setup
+- Users will be redirected to the "Member URL" or a matching url in "Advanced Member URL Configuration" after signing in
+- Users will be redirected to "Guest URL" on logging out
+- Logged in users landing on the "Guest URL" will be redirected to the "Member URL" or a matching url in "Advanced Member URL Configuration"
+- Logged out users landing on "Member URL" or any url in the "Advanced Member URL Configuration" will be redirected to the "Guest URL"
+
+**NOTE:** This requires version 0.2.21 or higher of the Booya UI Library.
+
+### Add a user widget after authentication and remove it on logout
+
+**IMPORTANT:** For BRiX users, this functionality is included in the "Authentication" module, so the snippets below should only be for more advanced customization of the default authentication behaviour.
+
+The user widget shows the user's avatar and name and includes options to "Edit Profile" and "Sign Out" on hover/focus.
+
+![Image](images/image20.png)
+
+**HTML:**
+```HTML
+<!-- Add a wrapper for the user widget to the page HTML -->
+<div id="booya-user-wrapper"></div>
+
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+**JavaScript:**
+```JavaScript
+booya.ready(function () {
+  // Listen for sign in event
+  booya.on(booya.events.IDENTIFY_SUCCESS, function (e) {
+    // Add the user widget
+    booya.widgets.renderUserWidget("#booya-user-wrapper");
+  });
 
-### Jekyll Themes
+  // Listen for logout event
+  booya.on(booya.events.LOGOUT_SUCCESS, function (e) {
+    // Remove user widget
+    // This is necessary if you don't redirect user away from the page
+    $("#booya-user-wrapper").html("");
+  });
+});
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/InboundLabsI/booya-docs/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```
 
-### Support or Contact
+### Edit Registration/ Sign Up and Profile Forms
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Changes made to the forms set as **"HubSpot Registration Form ID"** (named **"Booya: Registration Form"** by default) and **"HubSpot Profile Form ID"** (named **"Booya: Profile Form"** by default) in HubSpot will reflect in the Sign Up and Edit Profile forms on your website. 
+
+**IMPORTANT:**
+- Both HubSpot forms should include an email field otherwise submissions from your website will fail because submissions need to be associated with a contact.
+- The registration form in HubSpot shouldn't include a password field, this field is automatically added by Booya and passwords are **NOT** stored in HubSpot. Booya stores passwords as Bcrypt hashes in a MongoDB database for email authentication.
+- While the profile form in HubSpot must include an email, this field will not be shown on your website because it's autofilled by Booya when submitting to HubSpot.
+- This requires version 0.2.7 or higher of the Booya UI Library.
+
+
+## Booya UI Elements library
+
+### Generating HTML for Booya UI elements (e.g forms, modals and widgets)
+
+Below is a list of all available methods for generating HTML for common Booya UI elements.
+
+**NOTE:** All methods can be accessed via `booya.widgets.*` e.g `booya.widgets.renderAuthWidgets()`
+
+**NOTE:** Arguments prefixed with * are required
+
+#### `renderAuthWidgets(options)`
+
+Renders a widget with Sign In (with OAuth buttons), Sign Up and Recover forms with links that switch between the forms. Settings for the forms are dynamically read from Booya Admin.
+
+- `options`: (optional) object, supports the following attributes
+  
+  - `header`: (optional) string, HTML that will be added at the top of the widget
+  
+  - `footer`: (optional) string, HTML that will be added at the bottom of the widget
+
+  - `signIn`: (optional) boolean, enabled/disable the sign in form, `true` by default  
+  
+  - `signUp`: (optional) boolean, enabled/disable the sign up form, `true` by default
+  
+  - `recover`: (optional) boolean, enabled/disable the account recovery form, `true` by default
+  
+  - `multiStep`: (optional) boolean, enabled/disable the multi step authentication flow where the user enters their email first and either the sign in or sign up form is shown depending on the user's registration status, `false` by default
+  
+  - `target`: (optional) string, selector for html element in which the widget should be inserted
+  
+  - `className`: (optional) string, custom class to add to the widget container element
+  
+  - `modal`: (optional) object, supports the following attributes
+    
+    - `isOpen`: (optional) boolean, whether or not the modal should be automatically opened, `false` by default
+    
+    - `className`: (optional) string, custom class to add to the modal container element
+
+
+#### `renderUserWidget(target, options)`
+
+Renders a user widget that shows the user's avatar and name and includes options to "Edit Profile" and "Sign Out" on hover/focus.
+
+- `target`: (optional) string, selector for html element in which the user widget should be inserted
+
+- `options`: (optional) object, supports the following attributes
+
+  - `profile`: (optional) function, function to call on clicking "Edit Profile"
+  
+  - `logout`: (optional) function, function to call on clicking "Sign Out"
+
+
+#### `renderModal(*title, *content, options)`
+
+Renders a modal
+
+- `title`: (optional) string, title of the modal
+
+- `content`: (optional) string, HTML content of the modal
+
+- `options`: (optional) object, supports the following attributes
+
+  - `isOpen`: (optional) boolean, whether or not the modal should be automatically opened, `false` by default
+  
+  - `canClose`: (optional) boolean, whether or not the modal can be closed, `true` by default
+  
+  - `className`: (optional) string, custom class to add to the modal container element
+
+
+#### `renderSignInForm(title, fields, action, options)`
+
+Renders a sign in form with email and password fields by default
+
+- `title`: (optional) string, HTML that will be used as the title of the form
+
+- `fields`: (optional) string, HTML that will be used to render the fields in the form
+
+- `action`: (optional) string, Submit button text
+
+- `options`: (optional) object, supports the following attributes
+
+  - `target`: (optional) string, selector for html element in which the form should be inserted
+  
+  - `success`: (optional) string, Success message
+  
+  - `error`: (optional) string, Error message
+
+
+#### `renderSignUpForm(title, fields, action, options)`
+
+Renders a sign up/register form with email, password, first_name, last_name and phone fields by default
+
+- `title`: (optional) string, HTML that will be used as the title of the form
+
+- `fields`: (optional) string, HTML that will be used to render the fields in the form
+
+- `action`: (optional) string, Submit button text
+
+- `options`: (optional) object, supports the following attributes
+
+  - `target`: (optional) string, selector for html element in which the form should be inserted
+  
+  - `success`: (optional) string, Success message
+  
+  - `error`: (optional) string, Error message
+
+
+#### `renderRecoverForm(title, fields, action, options)`
+
+Renders an account recovery form with an email field by default
+
+- `title`: (optional) string, HTML that will be used as the title of the form
+
+- `fields`: (optional) string, HTML that will be used to render the fields in the form
+
+- `action`: (optional) string, Submit button text
+
+- `options`: (optional) object, supports the following attributes
+
+  - `target`: (optional) string, selector for html element in which the form should be inserted
+  
+  - `success`: (optional) string, Success message
+  
+  - `error`: (optional) string, Error message
+
+
+#### `renderResetForm(title, fields, action, options)`
+
+Renders a password reset/change form with  password and confirm password fields by default
+
+- `title`: (optional) string, HTML that will be used as the title of the form
+
+- `fields`: (optional) string, HTML that will be used to render the fields in the form
+
+- `action`: (optional) string, Submit button text
+
+- `options`: (optional) object, supports the following attributes
+
+  - `target`: (optional) string, selector for html element in which the form should be inserted
+  
+  - `success`: (optional) string, Success message
+  
+  - `error`: (optional) string, Error message
+
+
+#### `renderProfileForm(title, fields, action, options)`
+
+Renders a sign up/register form with first_name, last_name and phone fields by default
+
+- `title`: (optional) string, HTML that will be used as the title of the form
+
+- `fields`: (optional) string, HTML that will be used to render the fields in the form
+
+- `action`: (optional) string, Submit button text
+
+- `options`: (optional) object, supports the following attributes
+
+  - `target`: (optional) string, selector for html element in which the form should be inserted
+  
+  - `success`: (optional) string, Success message
+  
+  - `error`: (optional) string, Error message
+
+
+### Adding UI elements to the page
+
+#### HTML
+
+``` HTML
+<!-- Add a wrapper for the UI element to the page HTML -->
+<div id="booya-wrapper"></div>
+```
+
+#### JavaScript
+
+**NOTE:** All Booya code should be wrapped inside a ready callback to allow deferred loading of the UI library e.g
+``` JavaScript
+booya.ready(function () {
+  // Code goes here
+});
+```
+
+##### Authentication Widget: 
+Add an auth widget with all options for user registration including Sign In, Sign Up, Recovery and OAuth with links that switch between options
+``` JavaScript
+booya.widgets.renderAuthWidgets({
+  target: "#booya-wrapper"
+}); 
+```
+
+##### Authentication Widget - Modal: 
+``` JavaScript
+booya.widgets.renderAuthWidgets({
+  target: "#booya-wrapper",
+  modal: {isOpen: true}, // isOpen will automatically open the modal
+});
+```
+
+##### Authentication Widget - MultiStep: 
+Request email first and show either Sign In or Sign Up form depending on user's status
+``` JavaScript
+booya.widgets.renderAuthWidgets({
+  target: "#booya-wrapper",
+  multiStep: true,
+});
+```
+**NOTE:** This integration requires version 0.2.4 or higher of the Booya UI Library
+
+##### Authentication Widget - Magic Link sign in enabled: 
+``` JavaScript
+booya.widgets.renderAuthWidgets({
+  target: "#booya-wrapper",
+  magicLink: true,
+});
+```
+**NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
+
+##### Authentication Widget - No Sign In: 
+``` JavaScript
+booya.widgets.renderAuthWidgets({
+  target: "#booya-wrapper",
+  signIn: false,
+});
+```
+**NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
+
+##### Authentication Widget - No Sign Up: 
+Request email first and show either Sign In or Sign Up form depending on user's status
+``` JavaScript
+booya.widgets.renderAuthWidgets({
+  target: "#booya-wrapper",
+  signUp: false,
+});
+```
+**NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
+
+##### Authentication Widget - No Account Recovery: 
+``` JavaScript
+booya.widgets.renderAuthWidgets({
+  target: "#booya-wrapper",
+  recover: true,
+});
+```
+**NOTE:** This integration requires version 0.2.6 or higher of the Booya UI Library
+
+##### Sign In Form: 
+Add a sign in form to the wrapper
+``` JavaScript
+$("#booya-wrapper").html(
+  booya.widgets.renderSignInForm()
+);
+booya.initUI(); // Not necessary if a target is added via "options"
+```
+
+##### Sign In Form - Modal:
+Add a sign in form wrapped in a modal to the wrapper
+``` JavaScript
+booya.widgets.renderModal(
+  "Sign In", 
+  booya.widgets.renderSignInForm(),
+  {
+    target: "#booya-wrapper",
+    modal: {isOpen: true},
+  }
+);
+```
+
+##### Sign Up form: 
+Add a sign up form to the wrapper
+``` JavaScript
+$("#booya-wrapper").html(
+  booya.widgets.renderSignUpForm()
+);
+booya.initUI(); // Not necessary if a target is added via "options"
+```
+
+##### Sign Up Form - Customized:
+Add a customized sign up form to the wrapper
+``` JavaScript
+booya.widgets.renderSignUpForm(
+  "<h2>Register</h2>", // Custom Title
+  "<input name="email" type="email" required/>" + // Customized Fields
+  "<input name="password" type="password" required/>" +
+  "<input name="first_name" type="text" required/>" +
+  "<input name="last_name" type="text" required/>",
+  "Register", // Custom Action
+  {
+    "target": "#booya-wrapper",      
+    "error": "Something's wrong" // Custom error message
+    "success": "Awesome", // Custom success message
+    "warning": "Bad data", // Custom validation message
+  } 
+);
+```
+
+## Booya Events
+
+### List of available events
+
+**NOTE:** All event constants can be accessed via `booya.events.*` e.g `booya.events.IDENTIFY_SUCCESS`
+
+#### `booya.events.READY`
+Fired when booya is fully initialized (portalID and appID are set up)
+
+#### `booya.events.IDENTIFY_SUCCESS`
+Fired when a user is identified (e.g either when they login or a new page is loaded for an existing session)
+
+A `user` object is included in the event data.
+
+#### `booya.events.IDENTIFY_FAILED`
+Failure version of `booya.events.IDENTIFY_SUCCESS`
+
+A `user` object is included in the event data.
+
+#### `booya.events.VERIFY_EMAIL_SUCCESS`
+Fired as the success event for two legged sign in and sign up flows where an email is first entered before either a registration form is shown or a password form is shown. 
+
+A password form should be displayed when this event is fired
+
+A `email` is included in the event data.
+
+#### `booya.events.VERIFY_EMAIL_FAILED`
+Failure version of `booya.events.VERIFY_EMAIL_SUCCESS`
+
+A registration form should be displayed when this event is fired
+
+A `email` is included in the event data.
+
+#### `booya.events.LOGOUT_SUCCESS`
+Fired when a user logs out
+
+#### `booya.events.LOGOUT_FAILED`
+Failure version of `booya.events.LOGOUT_SUCCESS`
+
+#### `booya.events.MAGIC_LINK_REQUEST_SUCCESS`
+Fired when a magic link is requested successfully.
+
+#### `booya.events.MAGIC_LINK_REQUEST_FAILED`
+Failure version of `booya.events.MAGIC_LINK_REQUEST_SUCCESS`
+
+#### `booya.events.MAGIC_LINK_VERIFY_SUCCESS`
+Fired when a user is logged in with a magic link successfully
+
+#### `booya.events.MAGIC_LINK_VERIFY_FAILED`
+Failure version of `booya.events.MAGIC_LINK_VERIFY_SUCCESS`
+
+#### `booya.events.MEMBER_URL_REDIRECT`
+Fired before an authenticated user is redirected because of a matching "Advanced Member URL Configuration"
+
+A `user` object and the `nextUrl` is included in the event data.
+
+#### `booya.events.GUEST_URL_REDIRECT`
+Fired before an unauthenticated user is redirected because of a matching "Advanced Member URL Configuration"
+
+The `nextUrl` is included in the event data.
+
+
+### How to listen for events
+
+``` JavaScript
+booya.on(booya.events.IDENTIFY_SUCCESS, function (e) {
+  // Log user data
+  console.log("user identified", e.user);
+});
+```
+
+**NOTE:** Event listeners should be wrapped inside `booya.ready` callbacks
+ 
+ 
