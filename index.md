@@ -1,3 +1,7 @@
+---
+title: Booya Documentation
+---
+
 ## 1. Add Booya to your website
 
 **NOTE**: To see Code Snippets at [go.booya.io](https://go.booya.io), you need to enable the "Show Code Snippets" toggle.
