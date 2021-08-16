@@ -96,7 +96,7 @@ Below is a list of all available methods for generating HTML for common Booya UI
 
 **NOTE:** Arguments prefixed with * are required
 
-#### 2.1.1 `renderAuthWidgets(options)`
+#### `renderAuthWidgets(options)`
 
 Renders a widget with Sign In (with OAuth buttons), Sign Up and Recover forms with links that switch between the forms. Settings for the forms are dynamically read from Booya Admin.
 
@@ -125,7 +125,7 @@ Renders a widget with Sign In (with OAuth buttons), Sign Up and Recover forms wi
     - `className`: (optional) string, custom class to add to the modal container element
 
 
-#### 2.1.2 `renderUserWidget(target, options)`
+#### `renderUserWidget(target, options)`
 
 Renders a user widget that shows the user's avatar and name and includes options to "Edit Profile" and "Sign Out" on hover/focus.
 
@@ -138,7 +138,7 @@ Renders a user widget that shows the user's avatar and name and includes options
   - `logout`: (optional) function, function to call on clicking "Sign Out"
 
 
-#### 2.1.3 `renderModal(*title, *content, options)`
+#### `renderModal(*title, *content, options)`
 
 Renders a modal
 
@@ -155,7 +155,7 @@ Renders a modal
   - `className`: (optional) string, custom class to add to the modal container element
 
 
-#### 2.1.4 `renderSignInForm(title, fields, action, options)`
+#### `renderSignInForm(title, fields, action, options)`
 
 Renders a sign in form with email and password fields by default
 
@@ -174,7 +174,7 @@ Renders a sign in form with email and password fields by default
   - `error`: (optional) string, Error message
 
 
-#### 2.1.5 `renderSignUpForm(title, fields, action, options)`
+#### `renderSignUpForm(title, fields, action, options)`
 
 Renders a sign up/register form with email, password, first_name, last_name and phone fields by default
 
@@ -193,7 +193,7 @@ Renders a sign up/register form with email, password, first_name, last_name and 
   - `error`: (optional) string, Error message
 
 
-#### 2.1.6 `renderRecoverForm(title, fields, action, options)`
+#### `renderRecoverForm(title, fields, action, options)`
 
 Renders an account recovery form with an email field by default
 
@@ -212,7 +212,7 @@ Renders an account recovery form with an email field by default
   - `error`: (optional) string, Error message
 
 
-#### 2.1.7 `renderResetForm(title, fields, action, options)`
+#### `renderResetForm(title, fields, action, options)`
 
 Renders a password reset/change form with  password and confirm password fields by default
 
@@ -231,7 +231,7 @@ Renders a password reset/change form with  password and confirm password fields 
   - `error`: (optional) string, Error message
 
 
-#### 2.1.8 `renderProfileForm(title, fields, action, options)`
+#### `renderProfileForm(title, fields, action, options)`
 
 Renders a sign up/register form with first_name, last_name and phone fields by default
 
