@@ -30,6 +30,7 @@ NOTE: For version 0.2.7 and higher of the Booya UI Library, changes made to the 
 
 ### 1.3 Redirect user to a different page after sign in or logout
 
+#### 1.3.1 Configure redirects in [go.booya.io](https://go.booya.io)
 Set the "Member URL" and "Guest URL" in the Admin Dashboard under "Authentication Settings". Users will be redirected to the "Member URL" after sign in and to the "Guest URL" after logout.
 
 ![Image](images/screenshot_member_guest_url.png)
@@ -45,6 +46,46 @@ For more advanced redirect behaviour on sign in based on contact properties on s
 - Logged out users landing on "Member URL" or any url in the "Advanced Member URL Configuration" will be redirected to the "Guest URL"
 
 **NOTE:** This requires version 0.2.21 or higher of the Booya UI Library.
+
+To override advanced redirect behaviour from JavaScript, listen for the `booya.events.MEMBER_URL_REDIRECT` event
+
+```JavaScript
+booya.ready(function () {
+  // Adding an event listener for prevent the default redirect behaviour
+  booya.on(booya.events.MEMBER_URL_REDIRECT, function (e) {
+    // Retrieve user and nextUrl
+    var user = e.user,
+      nextUrl = e.nextUrl;
+    
+    if(user.hs_property_name === 'hs_property_value') {
+      // Perform whatever action is desired for this type of user
+    } else {
+      // Perform the default redirect
+      location.href = nextUrl;
+    }
+  });
+});
+```
+
+#### 1.3.2 Implement advanced redirects based on user's contact properties and authentication status
+```JavaScript
+booya.ready(function () {
+  // Adding an event listener for prevent the default redirect behaviour
+  booya.on(booya.events.IDENTIFY_SUCCESS, function (e) {
+    // Retrieve user
+    var user = e.user;
+    
+    // Perform custom redirect based on current url and user's contact property values
+  });
+  
+  // Listen for logout event
+  booya.on(booya.events.LOGOUT_SUCCESS, function (e) {
+    // Check if user isn't at the login page and redirect them if necessary
+  });
+
+});
+```
+
 
 ### 1.4 Add a user widget after authentication and remove it on logout
 
@@ -64,7 +105,7 @@ The user widget shows the user's avatar and name and includes options to "Edit P
 **JavaScript:**
 ```JavaScript
 booya.ready(function () {
-  // Listen for sign in event
+  // Listen for identification event
   booya.on(booya.events.IDENTIFY_SUCCESS, function (e) {
     // Add the user widget
     booya.widgets.renderUserWidget("#booya-user-wrapper");
@@ -79,7 +120,20 @@ booya.ready(function () {
 });
 ```
 
-### 1.5 Edit Registration/ Sign Up and Profile Forms
+### 1.5 Access authenticated user's contact properties
+
+```JavaScript
+booya.ready(function () {
+  // Listen for identification event
+  booya.on(booya.events.IDENTIFY_SUCCESS, function (e) {
+    // Retrieve user object
+    var user = e.user;
+    // do something with user contact properties e.g user.hs_property_name
+  });
+});
+```
+
+### 1.6 Edit Registration/ Sign Up and Profile Forms
 
 Changes made to the HubSpot forms set as **"HubSpot Registration Form ID"** and **"HubSpot Profile Form ID"** in [go.booya.io](https://go.booya.io) will be reflected in the Sign Up and Edit Profile forms on your website. 
 
@@ -91,7 +145,7 @@ These HubSpot forms are automatically created by Booya and named **"Booya: Regis
 - While the profile form in HubSpot must include an email, this field will not be shown on your website because it's autofilled by Booya when submitting to HubSpot.
 - This requires version 0.2.7 or higher of the Booya UI Library.
 
-### 1.6 Protecting content in HubL
+### 1.7 Protecting content in HubL
 
 - Create a template partial at the path "InboundLabs/Booya v2/macros/auth.html"
 
@@ -160,9 +214,9 @@ Renders a user widget that shows the user's avatar and name and includes options
 
 Renders a modal
 
-- `title`: (optional) string, title of the modal
+- `title`: (required) string, title of the modal
 
-- `content`: (optional) string, HTML content of the modal
+- `content`: (required) string, HTML content of the modal
 
 - `options`: (optional) object, supports the following attributes
 
