@@ -110,12 +110,19 @@ booya.ready(function () {
     // Add the user widget
     booya.widgets.renderUserWidget("#booya-user-wrapper");
   });
+});
+```
 
+**NOTE:** The widget handles the logout event automatically by either redirecting the user 
+to the "Guest URL" (if one is set at [go.booya.io](https://go.booya.io)) or reloading the current page.
+However, you can override the `booya.events.LOGOUT_SUCCESS` event to implement custom logout behaviour.
+```JavaScript
+booya.ready(function () {
   // Listen for logout event
   booya.on(booya.events.LOGOUT_SUCCESS, function (e) {
     // Remove user widget
-    // This is necessary if you don't redirect user away from the page
     $("#booya-user-wrapper").html("");
+    // Do other things e.g redirects
   });
 });
 ```
