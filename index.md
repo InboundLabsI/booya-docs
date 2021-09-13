@@ -171,6 +171,24 @@ These HubSpot forms are automatically created by Booya and named **"Booya: Regis
 {% endraw %}
 ```
 
+### 1.8 Multi-language support
+
+Booya widgets include translations for English (en), French (fr) and Spanish (es).
+
+Booya automatically attempts to detect the language of the page using the [lang](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) attribute of the html tag.
+
+The recommended approach for setting the language for your web pages is to properly set the lang attribute on the html tag.
+
+However, you can also manually override the language (e.g to Spanish (es)) using the code snippet below 
+```
+booya.setConfig({
+  language: 'es'
+});
+```
+
+**NOTE**: Booya defaults to English when either no language or an unsupported language is detected.
+
+**NOTE**: html lang attributes that include dialects and regions (e.g 'en-US', 'es-ES', 'fr-FR') are also supported.
 
 ## 2. Booya UI Elements library
 
